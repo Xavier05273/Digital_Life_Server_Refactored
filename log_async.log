@@ -1,0 +1,747 @@
+2026-08-01 16:00:35,760 INFO Initializing Server...
+2026-08-01 16:00:35,761 INFO Initializing ASR Service...
+2026-08-01 16:00:35,802 ERROR argument "symbol_value" (None) did not match any element in the union:
+  pathlib.Path: is not an instance of pathlib.Path
+  str: is not an instance of str
+  Iterable[str]: is not an instance of collections.abc.Iterable
+2026-08-01 16:00:35,803 ERROR Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/SocketServer.py", line 233, in <module>
+    s = Server(args)
+        ^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/SocketServer.py", line 107, in __init__
+    self.paraformer = ASRService.ASRService('./ASR/resources/config.yaml')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/ASR/ASRService.py", line 10, in __init__
+    self.paraformer = RapidParaformer(config_path)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/ASR/rapid_paraformer/rapid_paraformer.py", line 26, in __init__
+    self.tokenizer = CharTokenizer(**config['CharTokenizer'])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/ASR/rapid_paraformer/utils.py", line 70, in __init__
+    check_argument_types()
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/typeguard/_functions.py", line 154, in check_argument_types
+    return check_argument_types_internal(func.__name__, arguments, memo)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/typeguard/_functions.py", line 176, in check_argument_types_internal
+    check_type_internal(value, annotation, memo)
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/typeguard/_checkers.py", line 1007, in check_type_internal
+    checker(value, origin_type, args, memo)
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/typeguard/_checkers.py", line 447, in check_union
+    raise TypeCheckError(f"did not match any element in the union:\n{formatted_errors}")
+typeguard.TypeCheckError: argument "symbol_value" (None) did not match any element in the union:
+  pathlib.Path: is not an instance of pathlib.Path
+  str: is not an instance of str
+  Iterable[str]: is not an instance of collections.abc.Iterable
+
+2026-08-01 16:02:44,823 INFO Initializing Server...
+2026-08-01 16:02:44,824 INFO Initializing ASR Service...
+2026-08-01 16:02:48,064 INFO Initializing LLM Service (OpenAI-compatible)...
+2026-08-01 16:02:48,065 ERROR argument of type 'NoneType' is not iterable
+2026-08-01 16:02:48,066 ERROR Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/SocketServer.py", line 233, in <module>
+    s = Server(args)
+        ^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/SocketServer.py", line 110, in __init__
+    self.chat_gpt = GPTService.GPTService(args)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/GPT/GPTService.py", line 14, in __init__
+    self.tune = tune.get_tune(args.character, getattr(args, 'model', None))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/GPT/tune.py", line 4, in get_tune
+    if "3.5" in model:
+       ^^^^^^^^^^^^^^
+TypeError: argument of type 'NoneType' is not iterable
+
+2026-08-01 16:04:28,977 INFO Initializing Server...
+2026-08-01 16:04:28,980 INFO Initializing ASR Service...
+2026-08-01 16:04:32,203 INFO Initializing LLM Service (OpenAI-compatible)...
+2026-08-01 16:04:32,203 INFO LLM prompt: GPT/prompts/paimon4.txt
+2026-08-01 16:04:32,212 INFO LLM Service initialized. model=gpt-4o-mini, base_url=http://127.0.0.1:1234/v1
+2026-08-01 16:04:32,212 INFO Initializing TTS Service for character_paimon...
+2026-08-01 16:04:32,212 INFO TTS using device: cpu
+2026-08-01 16:04:33,270 INFO Loaded checkpoint 'TTS/models/paimon6k_390k.pth' (iteration 8864)
+2026-08-01 16:04:33,284 INFO Initializing Sentiment Engine...
+2026-08-01 16:04:34,332 INFO HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-08-01 16:04:34,542 INFO HTTP Request: HEAD https://huggingface.co/bert-base-chinese/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-08-01 16:04:34,760 INFO HTTP Request: GET https://huggingface.co/bert-base-chinese/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-08-01 16:04:34,760 WARNING Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-01 16:04:34,970 INFO HTTP Request: GET https://huggingface.co/api/models/bert-base-chinese/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-08-01 16:04:35,178 INFO HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-chinese/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-08-01 16:04:35,384 INFO HTTP Request: GET https://huggingface.co/api/models/bert-base-chinese/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-08-01 16:04:35,596 INFO HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-chinese/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-08-01 16:04:35,801 INFO HTTP Request: HEAD https://huggingface.co/bert-base-chinese/resolve/main/vocab.txt "HTTP/1.1 200 OK"
+2026-08-01 16:04:36,011 INFO HTTP Request: GET https://huggingface.co/bert-base-chinese/resolve/main/vocab.txt "HTTP/1.1 200 OK"
+2026-08-01 16:04:36,233 INFO HTTP Request: HEAD https://huggingface.co/bert-base-chinese/resolve/main/tokenizer.json "HTTP/1.1 200 OK"
+2026-08-01 16:04:36,442 INFO HTTP Request: GET https://huggingface.co/bert-base-chinese/resolve/main/tokenizer.json "HTTP/1.1 200 OK"
+2026-08-01 16:04:36,730 INFO HTTP Request: HEAD https://huggingface.co/bert-base-chinese/resolve/main/added_tokens.json "HTTP/1.1 404 Not Found"
+2026-08-01 16:04:36,936 INFO HTTP Request: HEAD https://huggingface.co/bert-base-chinese/resolve/main/special_tokens_map.json "HTTP/1.1 404 Not Found"
+2026-08-01 16:04:37,145 INFO HTTP Request: HEAD https://huggingface.co/bert-base-chinese/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-08-01 16:04:37,176 INFO Server is listening on ('127.0.1.1', 38438)...
+2026-08-01 16:31:14,010 INFO Initializing Server...
+2026-08-01 16:31:14,011 INFO Initializing ASR Service...
+2026-08-01 16:31:17,210 INFO Initializing LLM Service (OpenAI-compatible)...
+2026-08-01 16:31:17,210 INFO LLM prompt: GPT/prompts/paimon4.txt
+2026-08-01 16:31:17,218 INFO LLM Service initialized. model=gpt-4o-mini, base_url=http://127.0.0.1:1234/v1
+2026-08-01 16:31:17,218 INFO Initializing TTS Service for character_paimon...
+2026-08-01 16:31:17,219 INFO TTS using device: cpu
+2026-08-01 16:31:18,281 INFO Loaded checkpoint 'TTS/models/paimon6k_390k.pth' (iteration 8864)
+2026-08-01 16:31:18,294 INFO Initializing Sentiment Engine...
+2026-08-01 16:31:19,264 INFO HTTP Request: HEAD https://huggingface.co/bert-base-chinese/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-08-01 16:31:19,466 INFO HTTP Request: GET https://huggingface.co/api/models/bert-base-chinese/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-08-01 16:31:19,665 INFO HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-chinese/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-08-01 16:31:19,868 INFO HTTP Request: GET https://huggingface.co/api/models/bert-base-chinese/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-08-01 16:31:20,075 INFO HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-chinese/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-08-01 16:31:20,108 INFO Server is listening on ('0.0.0.0', 38438)...
+2026-08-01 16:33:59,687 INFO Connected by ('127.0.0.1', 48714)
+2026-08-01 16:33:59,689 ERROR 'TTService' object has no attribute 'cfg_path'
+2026-08-01 16:33:59,689 ERROR Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/SocketServer.py", line 235, in <module>
+    s.listen()
+  File "/home/minch/workspace/Digital_Life_Server/SocketServer.py", line 127, in listen
+    char_tag = self.char_name[self.tts_char_key()][2]
+                              ^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/SocketServer.py", line 165, in tts_char_key
+    if v[0] == self.tts.cfg_path:
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'TTService' object has no attribute 'cfg_path'
+
+2026-08-01 16:36:58,653 INFO Initializing Server...
+2026-08-01 16:36:58,653 INFO Initializing ASR Service...
+2026-08-01 16:37:02,183 INFO Initializing LLM Service (OpenAI-compatible)...
+2026-08-01 16:37:02,184 INFO LLM prompt: GPT/prompts/paimon4.txt
+2026-08-01 16:37:02,192 INFO LLM Service initialized. model=gpt-4o-mini, base_url=http://127.0.0.1:1234/v1
+2026-08-01 16:37:02,193 INFO Initializing TTS Service for character_paimon...
+2026-08-01 16:37:02,193 INFO TTS using device: cpu
+2026-08-01 16:37:03,299 INFO Loaded checkpoint 'TTS/models/paimon6k_390k.pth' (iteration 8864)
+2026-08-01 16:37:03,303 INFO Initializing Sentiment Engine...
+2026-08-01 16:37:04,180 INFO HTTP Request: HEAD https://huggingface.co/bert-base-chinese/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-08-01 16:37:04,181 WARNING Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-01 16:37:04,384 INFO HTTP Request: GET https://huggingface.co/api/models/bert-base-chinese/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-08-01 16:37:04,581 INFO HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-chinese/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-08-01 16:37:04,781 INFO HTTP Request: GET https://huggingface.co/api/models/bert-base-chinese/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-08-01 16:37:04,986 INFO HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-chinese/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-08-01 16:37:05,020 INFO Server is listening on ('0.0.0.0', 38438)...
+2026-08-01 16:37:09,062 INFO Connected by ('127.0.0.1', 38408)
+2026-08-01 16:38:35,779 ERROR [Errno 32] Broken pipe
+2026-08-01 16:38:35,781 ERROR Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/SocketServer.py", line 135, in listen
+    file_data = self.__receive_file()
+                ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/SocketServer.py", line 198, in __receive_file
+    self.conn.send(b'sb')
+BrokenPipeError: [Errno 32] Broken pipe
+
+2026-08-01 16:38:35,781 INFO Server is listening on ('0.0.0.0', 38438)...
+2026-08-01 16:38:51,300 INFO Connected by ('127.0.0.1', 36832)
+2026-08-01 16:39:01,345 INFO WAV file received and saved.
+2026-08-01 16:39:14,168 INFO ASR Result: ['你好']. time used 0.17.
+2026-08-01 16:39:14,575 INFO Retrying request to /chat/completions in 0.480035 seconds
+2026-08-01 16:39:15,056 INFO Retrying request to /chat/completions in 0.822730 seconds
+2026-08-01 16:39:15,880 ERROR LLM ask_stream error: Connection error.
+2026-08-01 16:39:15,881 ERROR Connection error.
+2026-08-01 16:39:15,889 ERROR Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection.py", line 101, in handle_request
+    raise exc
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection.py", line 78, in handle_request
+    stream = self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_backends/sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/home/minch/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1080, in request
+    response = self._send_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_client.py", line 491, in _send_request
+    response = self._send_with_auth_retry(request, stream=stream, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_client.py", line 469, in _send_with_auth_retry
+    response = super()._send_request(request, stream=stream, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1005, in _send_request
+    return self._client.send(request, stream=stream, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+  File "/home/minch/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/SocketServer.py", line 143, in listen
+    for sentence in self.chat_gpt.ask_stream(ask_text):
+  File "/home/minch/workspace/Digital_Life_Server/GPT/GPTService.py", line 93, in ask_stream
+    stream = self.client.chat.completions.create(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1375, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1115, in request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.
+
+2026-08-01 16:39:15,889 INFO Server is listening on ('0.0.0.0', 38438)...
+2026-08-01 16:40:38,099 INFO Connected by ('127.0.0.1', 39642)
+2026-08-01 16:40:44,193 INFO WAV file received and saved.
+2026-08-01 16:40:44,345 INFO ASR Result: ['你好']. time used 0.14.
+2026-08-01 16:40:44,346 INFO Retrying request to /chat/completions in 0.399293 seconds
+2026-08-01 16:40:44,747 INFO Retrying request to /chat/completions in 0.891836 seconds
+2026-08-01 16:40:45,640 ERROR LLM ask_stream error: Connection error.
+2026-08-01 16:40:45,640 ERROR Connection error.
+2026-08-01 16:40:45,641 ERROR Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection.py", line 101, in handle_request
+    raise exc
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection.py", line 78, in handle_request
+    stream = self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_backends/sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/home/minch/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1080, in request
+    response = self._send_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_client.py", line 491, in _send_request
+    response = self._send_with_auth_retry(request, stream=stream, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_client.py", line 469, in _send_with_auth_retry
+    response = super()._send_request(request, stream=stream, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1005, in _send_request
+    return self._client.send(request, stream=stream, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+  File "/home/minch/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/SocketServer.py", line 143, in listen
+    for sentence in self.chat_gpt.ask_stream(ask_text):
+  File "/home/minch/workspace/Digital_Life_Server/GPT/GPTService.py", line 93, in ask_stream
+    stream = self.client.chat.completions.create(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1375, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1115, in request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.
+
+2026-08-01 16:40:45,641 INFO Server is listening on ('0.0.0.0', 38438)...
+2026-08-01 16:47:02,484 INFO Initializing Server...
+2026-08-01 16:47:02,485 INFO Initializing ASR Service...
+2026-08-01 16:47:05,842 INFO Initializing LLM Service (OpenAI-compatible)...
+2026-08-01 16:47:05,843 INFO LLM prompt: GPT/prompts/paimon4.txt
+2026-08-01 16:47:05,851 INFO LLM Service initialized. model=gpt-4o-mini, base_url=http://127.0.0.1:1234/v1
+2026-08-01 16:47:05,851 INFO Initializing TTS Service for character_paimon...
+2026-08-01 16:47:05,852 INFO TTS using device: cpu
+2026-08-01 16:47:07,053 INFO Loaded checkpoint 'TTS/models/paimon6k_390k.pth' (iteration 8864)
+2026-08-01 16:47:07,058 INFO Initializing Sentiment Engine...
+2026-08-01 16:47:08,082 INFO HTTP Request: HEAD https://huggingface.co/bert-base-chinese/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-08-01 16:47:08,083 WARNING Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-01 16:47:08,288 INFO HTTP Request: GET https://huggingface.co/api/models/bert-base-chinese/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-08-01 16:47:08,481 INFO HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-chinese/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-08-01 16:47:08,683 INFO HTTP Request: GET https://huggingface.co/api/models/bert-base-chinese/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-08-01 16:47:08,887 INFO HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-chinese/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-08-01 16:47:08,920 INFO Server is listening on ('0.0.0.0', 38438)...
+2026-08-01 16:47:23,507 INFO Connected by ('127.0.0.1', 39476)
+2026-08-01 16:47:33,588 INFO WAV file received and saved.
+2026-08-01 16:47:36,083 INFO ASR Result: ['你好']. time used 0.15.
+2026-08-01 16:47:36,539 INFO Retrying request to /chat/completions in 0.414426 seconds
+2026-08-01 16:47:36,954 INFO Retrying request to /chat/completions in 0.976384 seconds
+2026-08-01 16:47:37,933 ERROR LLM ask_stream error: Connection error.
+2026-08-01 16:47:37,933 ERROR Connection error.
+2026-08-01 16:47:37,942 ERROR Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection.py", line 101, in handle_request
+    raise exc
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection.py", line 78, in handle_request
+    stream = self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_backends/sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/home/minch/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1080, in request
+    response = self._send_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_client.py", line 491, in _send_request
+    response = self._send_with_auth_retry(request, stream=stream, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_client.py", line 469, in _send_with_auth_retry
+    response = super()._send_request(request, stream=stream, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1005, in _send_request
+    return self._client.send(request, stream=stream, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+  File "/home/minch/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/SocketServer.py", line 143, in listen
+    for sentence in self.chat_gpt.ask_stream(ask_text):
+  File "/home/minch/workspace/Digital_Life_Server/GPT/GPTService.py", line 93, in ask_stream
+    stream = self.client.chat.completions.create(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1375, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1115, in request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.
+
+2026-08-01 16:47:37,943 INFO Server is listening on ('0.0.0.0', 38438)...
+2026-08-01 16:52:18,444 INFO Initializing Server...
+2026-08-01 16:52:18,445 INFO Initializing ASR Service...
+2026-08-01 16:52:21,869 INFO Initializing LLM Service (OpenAI-compatible)...
+2026-08-01 16:52:21,870 INFO LLM prompt: GPT/prompts/paimon4.txt
+2026-08-01 16:52:21,877 INFO LLM Service initialized. model=gpt-4o-mini, base_url=http://10.255.255.254:1234/v1
+2026-08-01 16:52:21,878 INFO Initializing TTS Service for character_paimon...
+2026-08-01 16:52:21,878 INFO TTS using device: cpu
+2026-08-01 16:52:22,944 INFO Loaded checkpoint 'TTS/models/paimon6k_390k.pth' (iteration 8864)
+2026-08-01 16:52:22,960 INFO Initializing Sentiment Engine...
+2026-08-01 16:52:24,165 INFO HTTP Request: HEAD https://huggingface.co/bert-base-chinese/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-08-01 16:52:24,166 WARNING Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-01 16:52:24,368 INFO HTTP Request: GET https://huggingface.co/api/models/bert-base-chinese/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-08-01 16:52:24,568 INFO HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-chinese/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-08-01 16:52:24,769 INFO HTTP Request: GET https://huggingface.co/api/models/bert-base-chinese/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-08-01 16:52:24,970 INFO HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-chinese/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-08-01 16:52:25,002 INFO Server is listening on ('0.0.0.0', 38438)...
+2026-08-01 16:52:37,789 INFO Connected by ('127.0.0.1', 37418)
+2026-08-01 16:52:47,725 INFO WAV file received and saved.
+2026-08-01 16:52:49,492 INFO ASR Result: ['你好']. time used 0.19.
+2026-08-01 16:52:49,841 INFO Retrying request to /chat/completions in 0.487508 seconds
+2026-08-01 16:52:50,330 INFO Retrying request to /chat/completions in 0.880737 seconds
+2026-08-01 16:52:51,212 ERROR LLM ask_stream error: Connection error.
+2026-08-01 16:52:51,212 ERROR Connection error.
+2026-08-01 16:52:51,217 ERROR Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection.py", line 101, in handle_request
+    raise exc
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection.py", line 78, in handle_request
+    stream = self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_sync/connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_backends/sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/home/minch/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1080, in request
+    response = self._send_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_client.py", line 491, in _send_request
+    response = self._send_with_auth_retry(request, stream=stream, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_client.py", line 469, in _send_with_auth_retry
+    response = super()._send_request(request, stream=stream, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1005, in _send_request
+    return self._client.send(request, stream=stream, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+  File "/home/minch/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/minch/workspace/Digital_Life_Server/SocketServer.py", line 143, in listen
+    for sentence in self.chat_gpt.ask_stream(ask_text):
+  File "/home/minch/workspace/Digital_Life_Server/GPT/GPTService.py", line 93, in ask_stream
+    stream = self.client.chat.completions.create(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 1296, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1375, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/minch/workspace/Digital_Life_Server/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1115, in request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.
+
+2026-08-01 16:52:51,218 INFO Server is listening on ('0.0.0.0', 38438)...
+2026-08-01 17:04:18,405 INFO Initializing Server...
+2026-08-01 17:04:18,406 INFO Initializing ASR Service...
+2026-08-01 17:04:22,420 INFO Initializing LLM Service (OpenAI-compatible)...
+2026-08-01 17:04:22,420 INFO LLM prompt: GPT/prompts/paimon4.txt
+2026-08-01 17:04:22,429 INFO LLM Service initialized. model=gemma-4-e4b-abliterated, base_url=http://192.168.18.3:1234/v1
+2026-08-01 17:04:22,429 INFO Initializing TTS Service for character_paimon...
+2026-08-01 17:04:22,430 INFO TTS using device: cpu
+2026-08-01 17:04:23,637 INFO Loaded checkpoint 'TTS/models/paimon6k_390k.pth' (iteration 8864)
+2026-08-01 17:04:23,654 INFO Initializing Sentiment Engine...
+2026-08-01 17:04:24,813 INFO HTTP Request: HEAD https://huggingface.co/bert-base-chinese/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-08-01 17:04:24,813 WARNING Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-01 17:04:25,014 INFO HTTP Request: GET https://huggingface.co/api/models/bert-base-chinese/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-08-01 17:04:25,226 INFO HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-chinese/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-08-01 17:04:25,433 INFO HTTP Request: GET https://huggingface.co/api/models/bert-base-chinese/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-08-01 17:04:25,637 INFO HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-chinese/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-08-01 17:04:25,673 INFO Server is listening on ('0.0.0.0', 38438)...
+2026-08-01 17:04:35,428 INFO Connected by ('127.0.0.1', 58356)
+2026-08-01 17:04:42,379 INFO WAV file received and saved.
+2026-08-01 17:04:44,688 INFO ASR Result: ['你好']. time used 0.17.
+2026-08-01 17:04:45,124 INFO HTTP Request: POST http://192.168.18.3:1234/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-01 17:04:47,482 INFO LLM Stream Response: 喂！你没事吧？, @Time 2.79
+2026-08-01 17:04:49,392 INFO VITS Synth Done, time used 1.91
+2026-08-01 17:04:49,468 INFO Sentiment Engine Infer: 5
+2026-08-01 17:04:49,975 INFO WAV SENT, size 150063
+2026-08-01 17:04:49,977 INFO LLM Stream Response: 是不是肚子饿得厉害？, @Time 5.29
+2026-08-01 17:04:51,407 INFO VITS Synth Done, time used 1.43
+2026-08-01 17:04:51,510 INFO Sentiment Engine Infer: 4
+2026-08-01 17:04:52,016 INFO WAV SENT, size 159279
+2026-08-01 17:04:52,020 INFO LLM Stream Response: （*漂浮到你的面前晃了晃身体，好奇地看着你*）说起来，是什么任务来着？, @Time 7.33
+2026-08-01 17:04:57,317 INFO VITS Synth Done, time used 5.30
+2026-08-01 17:04:57,349 INFO Sentiment Engine Infer: 4
+2026-08-01 17:04:57,851 INFO WAV SENT, size 550447
+2026-08-01 17:04:57,853 INFO LLM Stream Response: 唔嗯……你看起来有点儿精神不振啊。, @Time 13.17
+2026-08-01 17:05:00,128 INFO VITS Synth Done, time used 2.27
+2026-08-01 17:05:00,157 INFO Sentiment Engine Infer: 0
+2026-08-01 17:05:00,657 INFO WAV SENT, size 319535
+2026-08-01 17:05:01,159 INFO Stream finished.
+2026-08-01 17:05:15,916 INFO WAV file received and saved.
+2026-08-01 17:05:16,067 INFO ASR Result: ['你到底是谁呀']. time used 0.14.
+2026-08-01 17:05:16,078 INFO HTTP Request: POST http://192.168.18.3:1234/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-01 17:05:20,065 INFO LLM Stream Response: 呜啊？你问我什么呢？, @Time 4.00
+2026-08-01 17:05:21,308 INFO VITS Synth Done, time used 1.24
+2026-08-01 17:05:21,335 INFO Sentiment Engine Infer: 4
+2026-08-01 17:05:21,854 INFO WAV SENT, size 178735
+2026-08-01 17:05:21,855 INFO LLM Stream Response: 你是把我当成什么了？, @Time 5.79
+2026-08-01 17:05:22,842 INFO VITS Synth Done, time used 0.99
+2026-08-01 17:05:22,864 INFO Sentiment Engine Infer: 4
+2026-08-01 17:05:23,378 INFO WAV SENT, size 150063
+2026-08-01 17:05:23,381 INFO LLM Stream Response: 哼！🤨 你这家伙，怎么这么不了解人！, @Time 7.31
+2026-08-01 17:05:25,504 INFO VITS Synth Done, time used 2.12
+2026-08-01 17:05:25,524 INFO Sentiment Engine Infer: 2
+2026-08-01 17:05:26,033 INFO WAV SENT, size 315439
+2026-08-01 17:05:26,037 INFO LLM Stream Response: 不过，既然你这么问，那我就勉为其难地告诉你吧。, @Time 9.97
+2026-08-01 17:05:28,520 INFO VITS Synth Done, time used 2.48
+2026-08-01 17:05:28,566 INFO Sentiment Engine Infer: 0
+2026-08-01 17:05:29,070 INFO WAV SENT, size 359983
+2026-08-01 17:05:29,073 INFO LLM Stream Response: 当然啦，我可是提瓦特大陆最棒的向导——派蒙！, @Time 13.01
+2026-08-01 17:05:31,571 INFO VITS Synth Done, time used 2.50
+2026-08-01 17:05:31,607 INFO Sentiment Engine Infer: 0
+2026-08-01 17:05:32,108 INFO WAV SENT, size 391727
+2026-08-01 17:05:32,111 INFO LLM Stream Response: 🌟 别老是盯着我发呆啊，还有点没礼貌！, @Time 16.04
+2026-08-01 17:05:34,013 INFO VITS Synth Done, time used 1.90
+2026-08-01 17:05:34,042 INFO Sentiment Engine Infer: 2
+2026-08-01 17:05:34,543 INFO WAV SENT, size 295983
+2026-08-01 17:05:34,545 INFO LLM Stream Response: 记住，我是派蒙！, @Time 18.48
+2026-08-01 17:05:35,581 INFO VITS Synth Done, time used 1.04
+2026-08-01 17:05:35,619 INFO Sentiment Engine Infer: 0
+2026-08-01 17:05:36,120 INFO WAV SENT, size 154159
+2026-08-01 17:05:36,123 INFO LLM Stream Response: 我的身份，谁也拿不走！, @Time 20.06
+2026-08-01 17:05:37,390 INFO VITS Synth Done, time used 1.27
+2026-08-01 17:05:37,414 INFO Sentiment Engine Infer: 2
+2026-08-01 17:05:37,914 INFO WAV SENT, size 191535
+2026-08-01 17:05:37,918 INFO LLM Stream Response: 你是我的伙伴，可不能把我当成什么随便可以摆弄的小玩意儿！, @Time 21.85
+2026-08-01 17:05:40,568 INFO VITS Synth Done, time used 2.65
+2026-08-01 17:05:40,598 INFO Sentiment Engine Infer: 2
+2026-08-01 17:05:41,098 INFO WAV SENT, size 408623
+2026-08-01 17:05:41,100 INFO LLM Stream Response: 说起来，你是不是又饿了？, @Time 25.03
+2026-08-01 17:05:42,511 INFO VITS Synth Done, time used 1.41
+2026-08-01 17:05:42,526 INFO Sentiment Engine Infer: 4
+2026-08-01 17:05:43,027 INFO WAV SENT, size 235567
+2026-08-01 17:05:43,030 INFO LLM Stream Response: 看你那样子，脸色有点苍白哦……💖, @Time 26.96
+2026-08-01 17:05:44,925 INFO VITS Synth Done, time used 1.89
+2026-08-01 17:05:44,940 INFO Sentiment Engine Infer: 5
+2026-08-01 17:05:45,441 INFO WAV SENT, size 308271
+2026-08-01 17:05:45,942 INFO Stream finished.
+2026-08-01 17:06:16,535 INFO WAV file received and saved.
+2026-08-01 17:06:16,759 INFO ASR Result: ['这家伙是不是有点傻']. time used 0.21.
+2026-08-01 17:06:16,769 INFO HTTP Request: POST http://192.168.18.3:1234/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-01 17:06:23,692 INFO LLM Stream Response: 咦？什么呀？, @Time 6.93
+2026-08-01 17:06:24,614 INFO VITS Synth Done, time used 0.92
+2026-08-01 17:06:24,642 INFO Sentiment Engine Infer: 4
+2026-08-01 17:06:25,143 INFO WAV SENT, size 124463
+2026-08-01 17:06:31,469 INFO LLM Stream Response: “这家伙”是谁啊？, @Time 14.71
+2026-08-01 17:06:32,424 INFO VITS Synth Done, time used 0.95
+2026-08-01 17:06:32,444 INFO Sentiment Engine Infer: 4
+2026-08-01 17:06:32,947 INFO WAV SENT, size 133167
+2026-08-01 17:06:40,748 INFO LLM Stream Response: 你指的“这家伙”是指谁呀？, @Time 23.99
+2026-08-01 17:06:41,920 INFO VITS Synth Done, time used 1.17
+2026-08-01 17:06:41,937 INFO Sentiment Engine Infer: 4
+2026-08-01 17:06:42,438 INFO WAV SENT, size 171567
+2026-08-01 17:06:42,439 INFO LLM Stream Response: 快点说清楚！, @Time 25.68
+2026-08-01 17:06:43,181 INFO VITS Synth Done, time used 0.74
+2026-08-01 17:06:43,199 INFO Sentiment Engine Infer: 0
+2026-08-01 17:06:43,701 INFO WAV SENT, size 103983
+2026-08-01 17:06:43,704 INFO LLM Stream Response: 别光是嘀咕着，让我猜谜语可没劲嘛！, @Time 26.94
+2026-08-01 17:06:45,635 INFO VITS Synth Done, time used 1.93
+2026-08-01 17:06:45,661 INFO Sentiment Engine Infer: 2
+2026-08-01 17:06:46,162 INFO WAV SENT, size 276015
+2026-08-01 17:06:46,166 INFO LLM Stream Response: 😠 唔嗯……你这话听起来可有点不服气的样子哦，真是的！, @Time 29.41
+2026-08-01 17:06:49,170 INFO VITS Synth Done, time used 3.00
+2026-08-01 17:06:49,214 INFO Sentiment Engine Infer: 2
+2026-08-01 17:06:49,715 INFO WAV SENT, size 438831
+2026-08-01 17:06:56,136 INFO LLM Stream Response: 要是不告诉我具体指谁，我可就要给你起个难听的绰号了！, @Time 39.38
+2026-08-01 17:06:58,718 INFO VITS Synth Done, time used 2.58
+2026-08-01 17:06:58,771 INFO Sentiment Engine Infer: 2
+2026-08-01 17:06:59,273 INFO WAV SENT, size 373295
+2026-08-01 17:07:02,054 INFO LLM Stream Response: 就叫“爱揣测的小笨蛋”好了！, @Time 45.29
+2026-08-01 17:07:03,245 INFO VITS Synth Done, time used 1.19
+2026-08-01 17:07:03,266 INFO Sentiment Engine Infer: 2
+2026-08-01 17:07:03,769 INFO WAV SENT, size 180783
+2026-08-01 17:07:03,771 INFO LLM Stream Response: 😤 你快点说啊，旅行者！, @Time 47.01
+2026-08-01 17:07:04,770 INFO VITS Synth Done, time used 1.00
+2026-08-01 17:07:04,789 INFO Sentiment Engine Infer: 0
+2026-08-01 17:07:05,291 INFO WAV SENT, size 156207
+2026-08-01 17:07:05,795 INFO Stream finished.
+2026-08-01 17:07:13,659 INFO WAV file received and saved.
+2026-08-01 17:07:13,865 INFO ASR Result: ['说你呢小傻瓜']. time used 0.20.
+2026-08-01 17:07:13,873 INFO HTTP Request: POST http://192.168.18.3:1234/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-01 17:07:22,495 INFO LLM Stream Response: 呜啊！好生气！, @Time 8.63
+2026-08-01 17:07:24,108 INFO VITS Synth Done, time used 1.61
+2026-08-01 17:07:24,142 INFO Sentiment Engine Infer: 2
+2026-08-01 17:07:24,643 INFO WAV SENT, size 173103
+2026-08-01 17:07:25,003 INFO LLM Stream Response: 你、你竟然敢这么叫我？！, @Time 11.14
+2026-08-01 17:07:26,498 INFO VITS Synth Done, time used 1.49
+2026-08-01 17:07:26,520 INFO Sentiment Engine Infer: 2
+2026-08-01 17:07:27,021 INFO WAV SENT, size 207407
+2026-08-01 17:07:27,022 INFO LLM Stream Response: 😤 喂！, @Time 13.16
+2026-08-01 17:07:27,472 INFO VITS Synth Done, time used 0.45
+2026-08-01 17:07:27,503 INFO Sentiment Engine Infer: 2
+2026-08-01 17:07:28,004 INFO WAV SENT, size 51247
+2026-08-01 17:07:28,007 INFO LLM Stream Response: 别以为你是谁啊，就敢随便对我说话！, @Time 14.14
+2026-08-01 17:07:29,690 INFO VITS Synth Done, time used 1.68
+2026-08-01 17:07:29,729 INFO Sentiment Engine Infer: 2
+2026-08-01 17:07:30,231 INFO WAV SENT, size 248367
+2026-08-01 17:07:30,536 INFO LLM Stream Response: 唔嗯……好想给你取个难听的绰号！, @Time 16.67
+2026-08-01 17:07:32,809 INFO VITS Synth Done, time used 2.27
+2026-08-01 17:07:32,835 INFO Sentiment Engine Infer: 2
+2026-08-01 17:07:33,337 INFO WAV SENT, size 320559
+2026-08-01 17:07:33,339 INFO LLM Stream Response: 就叫**“笨蛋球”**好了！, @Time 19.47
+2026-08-01 17:07:34,173 INFO VITS Synth Done, time used 0.83
+2026-08-01 17:07:34,192 INFO Sentiment Engine Infer: 2
+2026-08-01 17:07:34,694 INFO WAV SENT, size 114223
+2026-08-01 17:07:34,698 INFO LLM Stream Response: 💢 你说看，你这家伙，就知道用这种轻飘飘的话来糊弄人！, @Time 20.83
+2026-08-01 17:07:37,829 INFO VITS Synth Done, time used 3.13
+2026-08-01 17:07:37,864 INFO Sentiment Engine Infer: 2
+2026-08-01 17:07:38,372 INFO WAV SENT, size 465967
+2026-08-01 17:07:38,374 INFO LLM Stream Response: 我可是派蒙啊！, @Time 24.51
+2026-08-01 17:07:39,244 INFO VITS Synth Done, time used 0.87
+2026-08-01 17:07:39,274 INFO Sentiment Engine Infer: 2
+2026-08-01 17:07:39,776 INFO WAV SENT, size 129071
+2026-08-01 17:07:39,779 INFO LLM Stream Response: 重要的向导，关键时刻可不会掉链子的！, @Time 25.91
+2026-08-01 17:07:41,587 INFO VITS Synth Done, time used 1.81
+2026-08-01 17:07:41,628 INFO Sentiment Engine Infer: 0
+2026-08-01 17:07:42,128 INFO WAV SENT, size 287791
+2026-08-01 17:07:42,130 INFO LLM Stream Response: 说起来，是什么任务来着？, @Time 28.27
+2026-08-01 17:07:43,749 INFO VITS Synth Done, time used 1.62
+2026-08-01 17:07:43,804 INFO Sentiment Engine Infer: 4
+2026-08-01 17:07:44,305 INFO WAV SENT, size 252975
+2026-08-01 17:07:44,309 INFO LLM Stream Response: 别光顾着指责我，难道不记得我们接下来该做什么吗？！, @Time 30.44
+2026-08-01 17:07:46,529 INFO VITS Synth Done, time used 2.22
+2026-08-01 17:07:46,557 INFO Sentiment Engine Infer: 2
+2026-08-01 17:07:47,058 INFO WAV SENT, size 352303
+2026-08-01 17:07:47,061 INFO LLM Stream Response: 快点说啊，你这个**“笨蛋球”**！, @Time 33.20
+2026-08-01 17:07:48,445 INFO VITS Synth Done, time used 1.38
+2026-08-01 17:07:48,476 INFO Sentiment Engine Infer: 2
+2026-08-01 17:07:48,977 INFO WAV SENT, size 211503
+2026-08-01 17:07:48,978 INFO LLM Stream Response: 😠, @Time 35.11
+2026-08-01 17:07:49,083 INFO VITS Synth Done, time used 0.11
+2026-08-01 17:07:49,109 INFO Sentiment Engine Infer: 4
+2026-08-01 17:07:49,609 INFO WAV SENT, size 4655
+2026-08-01 17:07:50,110 INFO Stream finished.
+2026-08-01 17:08:43,277 INFO WAV file received and saved.
+2026-08-01 17:08:43,428 INFO ASR Result: ['你会做些什么']. time used 0.14.
+2026-08-01 17:08:43,436 INFO HTTP Request: POST http://192.168.18.3:1234/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-01 17:08:50,442 INFO LLM Stream Response: 哇啊！你要问我做什么吗？, @Time 7.01
+2026-08-01 17:08:51,836 INFO VITS Synth Done, time used 1.39
+2026-08-01 17:08:51,856 INFO Sentiment Engine Infer: 4
+2026-08-01 17:08:52,357 INFO WAV SENT, size 213039
+2026-08-01 17:09:07,606 INFO LLM Stream Response: 嗯……作为一个向导嘛，当然是带你到处去啦！, @Time 24.18
+2026-08-01 17:09:10,620 INFO VITS Synth Done, time used 3.01
+2026-08-01 17:09:10,708 INFO Sentiment Engine Infer: 0
+2026-08-01 17:09:11,209 INFO WAV SENT, size 385071
+2026-08-01 17:09:35,588 INFO LLM Stream Response: 我会帮你指路，发现那些隐藏的宝藏点，顺便还能给你找点好吃的！, @Time 52.16
+2026-08-01 17:09:39,170 INFO VITS Synth Done, time used 3.58
+2026-08-01 17:09:39,208 INFO Sentiment Engine Infer: 0
+2026-08-01 17:09:39,709 INFO WAV SENT, size 497711
+2026-08-01 17:09:43,684 INFO LLM Stream Response: 说起来，现在有没有饿呀？, @Time 60.26
+2026-08-01 17:09:45,408 INFO VITS Synth Done, time used 1.72
+2026-08-01 17:09:45,444 INFO Sentiment Engine Infer: 4
+2026-08-01 17:09:45,945 INFO WAV SENT, size 232495
+2026-08-01 17:09:49,376 INFO LLM Stream Response: 肚子是不是咕咕叫了？, @Time 65.95
+2026-08-01 17:09:50,457 INFO VITS Synth Done, time used 1.08
+2026-08-01 17:09:50,479 INFO Sentiment Engine Infer: 4
+2026-08-01 17:09:50,980 INFO WAV SENT, size 153135
+2026-08-01 17:09:58,094 INFO LLM Stream Response: 🍜 别光盯着我发呆啊，快点告诉我你想干什么！, @Time 74.67
+2026-08-01 17:10:00,097 INFO VITS Synth Done, time used 2.00
+2026-08-01 17:10:00,117 INFO Sentiment Engine Infer: 2
+2026-08-01 17:10:00,618 INFO WAV SENT, size 319023
+2026-08-01 17:10:00,619 INFO LLM Stream Response: 不然可就浪费时间了！, @Time 77.19
+2026-08-01 17:10:01,649 INFO VITS Synth Done, time used 1.03
+2026-08-01 17:10:01,664 INFO Sentiment Engine Infer: 2
+2026-08-01 17:10:02,165 INFO WAV SENT, size 162863
+2026-08-01 17:10:02,166 INFO LLM Stream Response: 😤, @Time 78.74
+2026-08-01 17:10:02,268 INFO VITS Synth Done, time used 0.10
+2026-08-01 17:10:02,285 INFO Sentiment Engine Infer: 4
+2026-08-01 17:10:02,785 INFO WAV SENT, size 5167
+2026-08-01 17:10:03,286 INFO Stream finished.

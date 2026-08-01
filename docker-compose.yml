@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  digital-life-server:
+    build: .
+    container_name: digital-life-server
+    restart: unless-stopped
+    ports:
+      - "38438:38438"
+    environment:
+      # LM Studio / OpenAI-compatible API 設定 (依實際環境修改)
+      OPENAI_BASE_URL: http://host.docker.internal:1234/v1   # Docker -> 本機 LM Studio
+      LLM_MODEL: gemma-4-e4b-abliterated                    # 使用的模型名稱
+    command: ["--character", "paimon", "--stream", "true"]

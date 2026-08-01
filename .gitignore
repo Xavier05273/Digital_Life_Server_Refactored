@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+env/
+
+# Build / temp
+build/
+dist/
+*.egg-info/
+*.so
+tmp/
+log.log
+*.wav
+
+# Docker logs / misc
+.dockerignore
+*.tar.gz
+.DS_Store
