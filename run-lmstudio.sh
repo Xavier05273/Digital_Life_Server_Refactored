@@ -18,7 +18,7 @@ fi
 source .venv/bin/activate
 
 # LM Studio 預設端點 (WSL -> Windows host)
-export OPENAI_BASE_URL="${OPENAI_BASE_URL:-http://192.168.18.3:1234/v1}"
+export OPENAI_BASE_URL="${OPENAI_BASE_URL:-http://YOUR_REAL_URL:1234/v1}"
 export LLM_MODEL="${LLM_MODEL:-gemma-4-e4b-abliterated}"
 
 echo "=== Digital Life Server (LM Studio mode) ==="

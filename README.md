@@ -1,7 +1,21 @@
+Status:
+Experimental / Personal maintained revival
+
+This project is under active development.
+
+
 # Digital Life Server (Refactored)
+
+Fork from https://github.com/zixiiu/Digital_Life_Server.
 
 A refactored, modernized backend for the "Digital Life" voice AI character server.  
 Designed to run with local LLMs via LM Studio (OpenAI-compatible API), and connect to the original UE client (T.exe).
+
+## Credits
+
+Based on the original Digital Life Server project by Zixiu Fu.
+
+This repository is a community-maintained revival with updated dependencies and fixes.
 
 ## Features
 
@@ -22,7 +36,7 @@ Designed to run with local LLMs via LM Studio (OpenAI-compatible API), and conne
 ### First-time setup
 
 ```bash
-cd Digital_Life_Server_Package
+cd ~/Digital_Life_Server_Refactored
 chmod +x setup.sh start.sh
 ./setup.sh
 ```
@@ -46,12 +60,13 @@ Digital_Life_Server_Package/
 
 (Models are not included in this repository due to size.)
 
-### Start LM Studio
+### Start LM Studio(Or other local LLM provider)
 
 1. Open LM Studio → Local Server
 2. Click "Start server"
 3. Enable "Allow connections from local network"
-4. Load a model (e.g., gemma-4-e4b-abliterated)
+4. Open "run-lmstudio.sh"
+5. Edit "export OPENAI_BASE_URL" "YOUR_REAL_URL" on the right side
 
 ### One-click start
 
