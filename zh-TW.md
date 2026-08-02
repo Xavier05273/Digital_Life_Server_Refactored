@@ -133,8 +133,8 @@ gemma-4-e4b-abliterated
 
 請下載專案所需模型：
 
-* Google Drive（建議）
-* 百度網盤
+* [Google Drive](https://drive.google.com/file/d/1_jp826uLmK8qT6BCJ_iyaU6WB9RSljv0/view?usp=sharing)（建議）
+* [百度網盤](https://pan.baidu.com/s/1EnHDPADNdhDl71x_DHeElg?pwd=75gr)
 
 下載完成後，放入以下目錄：
 
