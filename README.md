@@ -1,4 +1,11 @@
+Status:
+Experimental / Personal maintained revival
+
+This project is under active development.
+
 # Digital Life Server (Refactored)
+
+Fork from https://github.com/zixiiu/Digital_Life_Server
 
 A refactored, modernized backend for the "Digital Life" voice AI character server.  
 Designed to run with local LLMs via LM Studio (OpenAI-compatible API), and connect to the original UE client (T.exe).
@@ -23,7 +30,9 @@ Designed to run with local LLMs via LM Studio (OpenAI-compatible API), and conne
 ### First-time setup
 
 ```bash
-cd Digital_Life_Server_Package
+cd ~
+git clone https://github.com/Xavier05273/Digital_Life_Server_Refactored.git
+cd ./Digital_Life_Server_Refactored
 chmod +x setup.sh start.sh
 ./setup.sh
 ```
@@ -46,6 +55,8 @@ Edit `config.yaml`:
 
 ### Add your models
 
+You can download models from [Google Drive](https://drive.google.com/file/d/1_jp826uLmK8qT6BCJ_iyaU6WB9RSljv0/view?usp=sharing) or [百度网盘](https://pan.baidu.com/s/1EnHDPADNdhDl71x_DHeElg?pwd=75gr)
+
 Place model files in the corresponding directories:
 
 ```
@@ -57,7 +68,7 @@ Digital_Life_Server_Package/
 
 (Models are not included in this repository due to size.)
 
-### Start LM Studio
+### Start LM Studio(Or other LLM provider)
 
 1. Open LM Studio → Local Server
 2. Click "Start server"
@@ -68,8 +79,8 @@ Digital_Life_Server_Package/
 
 ```bash
 ./start.sh paimon      # Paimon character
-./start.sh yunfei      # Yunfei character
-./start.sh catmaid     # Catmaid character
+./start.sh yunfei      # Yunfei character (Untested)
+./start.sh catmaid     # Catmaid character (Untested)
 ```
 
 The server listens on the address configured in `config.yaml` (default: 0.0.0.0:38438) and waits for the UE client (T.exe) to connect.
@@ -79,7 +90,7 @@ The server listens on the address configured in `config.yaml` (default: 0.0.0.0:
 - Configure T.exe to connect to: 127.0.0.1:38438
 - Or use the container/host IP + 38438 if running via Docker
 
-## Docker Mode (Optional)
+## Docker Mode (Optional) (Untested)
 
 If you have Docker installed, you can run everything in a container:
 

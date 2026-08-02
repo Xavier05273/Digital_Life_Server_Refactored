@@ -12,6 +12,7 @@ import soundfile
 
 import GPT.tune
 from utils.FlushingFileHandler import FlushingFileHandler
+from utils.config import load_config, get_server_config, get_character_config
 from ASR import ASRService
 from GPT import GPTService
 from TTS import TTService
@@ -46,27 +47,32 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="Digital Life Server (refactored for OpenAI-compatible API)"
     )
+
+    # Config file path
+    parser.add_argument("--config", type=str, required=False, default="config.yaml",
+                        help="Path to config.yaml (default: ./config.yaml)")
+
     # LLM / Chat settings
     parser.add_argument("--APIKey", type=str, required=False,
-                        help="OpenAI-compatible API key (default: env OPENAI_API_KEY or 'lm-studio')")
+                        help="OpenAI-compatible API key (overrides config/env)")
     parser.add_argument("--base_url", type=str, required=False,
-                        help="LLM API base URL (default: env OPENAI_BASE_URL or http://127.0.0.1:1234/v1)")
+                        help="LLM API base URL (overrides config/env)")
     parser.add_argument("--model", type=str, required=False,
-                        help="Model name to use (e.g. gpt-4o-mini). Default from LLM_MODEL env.")
+                        help="Model name to use (e.g. gpt-4o-mini). Overrides config/env.")
 
     # Behavior
-    parser.add_argument("--stream", type=str2bool, nargs='?', const=True, default=True,
+    parser.add_argument("--stream", type=str2bool, nargs='?', const=True, default=None,
                         help="Enable streaming responses for TTS chunks.")
-    parser.add_argument("--character", type=str, required=True,
-                        help="Character preset: paimon / yunfei / catmaid")
-    parser.add_argument("--brainwash", type=str2bool, nargs='?', const=False, default=False,
+    parser.add_argument("--character", type=str, required=False,
+                        help="Character preset: paimon / yunfei / catmaid (or from config)")
+    parser.add_argument("--brainwash", type=str2bool, nargs='?', const=False, default=None,
                         help="(Reserved) Periodically reinforce system prompt.")
 
     # Network
     parser.add_argument("--ip", type=str, required=False,
-                        help="Bind IP (default: this machine's LAN IP)")
-    parser.add_argument("--port", type=int, required=False, default=38438,
-                        help="Listen port (default: 38438)")
+                        help="Bind IP (overrides config/env)")
+    parser.add_argument("--port", type=int, required=False,
+                        help="Listen port (overrides config/env)")
 
     # Proxy (optional)
     parser.add_argument("--proxy", type=str, required=False,
@@ -77,13 +83,19 @@ def parse_args():
 
 class Server():
     def __init__(self, args):
+        # Load configuration from file
+        cfg = load_config(args.config)
+
         # SERVER STUFF
         self.addr = None
         self.conn = None
         logging.info('Initializing Server...')
 
-        bind_ip = (args.ip or "0.0.0.0")
-        port = args.port
+        # Resolve server bind config: CLI > env > config.yaml > default
+        srv_cfg = get_server_config(cfg, args)
+        bind_ip = (args.ip or srv_cfg["host"])
+        port = int(args.port if args.port is not None else srv_cfg["port"])
+
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.s.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 10240000)
@@ -93,30 +105,38 @@ class Server():
         self.tmp_proc_file = 'tmp/server_processed.wav'
         os.makedirs('tmp', exist_ok=True)
 
-        # hard coded character map (extend as needed)
+        # Character selection: CLI > config default (first enabled)
+        char_name_input = (args.character or "paimon").lower()
+
+        # Build character map from config.yaml + fallback defaults
         self.char_name = {
             'paimon': ['TTS/models/paimon6k.json', 'TTS/models/paimon6k_390k.pth', 'character_paimon', 1],
             'yunfei': ['TTS/models/yunfeimix2.json', 'TTS/models/yunfeimix2_53k.pth', 'character_yunfei', 1.1],
             'catmaid': ['TTS/models/catmix.json', 'TTS/models/catmix_107k.pth', 'character_catmaid', 1.2]
         }
 
-        char_key = args.character.lower()
-        if char_key not in self.char_name:
-            raise ValueError(f"Unknown character: {args.character}. Choose from {list(self.char_name.keys())}")
+        # Override with config.yaml character settings if present
+        char_cfg = get_character_config(cfg, char_name_input)
+        if char_cfg.get("tts_model_path"):
+            self.char_name[char_name_input][1] = char_cfg["tts_model_path"]
+
+        if char_name_input not in self.char_name:
+            raise ValueError(f"Unknown character: {char_name_input}. Choose from {list(self.char_name.keys())}")
 
         # Remember which character we're using (for char_tag to client)
-        self.current_char_key = char_key
+        self.current_char_key = char_name_input
 
         # PARAFORMER ASR
         self.paraformer = ASRService.ASRService('./ASR/resources/config.yaml')
 
-        # LLM (OpenAI-compatible / LM Studio)
+        # LLM (OpenAI-compatible / LM Studio) - GPTService reads config internally
         self.chat_gpt = GPTService.GPTService(args)
 
         # TTS
-        self.tts = TTService.TTService(*self.char_name[char_key])
+        logging.info(f'Initializing TTS Service for character_{char_name_input}...')
+        self.tts = TTService.TTService(*self.char_name[char_name_input])
 
-        # Sentiment Engine
+        # Sentiment Engine (default model; can be extended via config later)
         self.sentiment = SentimentEngine.SentimentEngine('SentimentEngine/models/paimon_sentiment.onnx')
 
     def listen(self):
@@ -139,7 +159,13 @@ class Server():
 
                     ask_text = self.process_voice()
 
-                    if args.stream:
+                    if args.stream is not None:
+                        use_stream = args.stream
+                    else:
+                        # Default to True unless explicitly disabled via env/config later.
+                        use_stream = True
+
+                    if use_stream:
                         for sentence in self.chat_gpt.ask_stream(ask_text):
                             self.send_voice(sentence)
                         self.notice_stream_end()
@@ -227,6 +253,11 @@ class Server():
 if __name__ == '__main__':
     try:
         args = parse_args()
+
+        # If character not provided via CLI, default to 'paimon' (can be overridden in config later).
+        if not args.character:
+            args.character = "paimon"
+
         s = Server(args)
         s.listen()
     except Exception as e:

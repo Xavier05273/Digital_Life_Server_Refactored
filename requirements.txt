@@ -36,3 +36,6 @@ PyYAML>=6.0
 tqdm>=4.66
 Pillow>=10.0
 colorama>=0.4; sys_platform=="win32"
+
+# Type checking (required by ASR/rapid_paraformer)
+typeguard>=2,<3

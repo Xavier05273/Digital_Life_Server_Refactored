@@ -3,7 +3,7 @@ from Cython.Build import cythonize
 import numpy
 
 ext = Extension(
-    "monotonic_align.core",
+    "core",
     sources=["core.pyx"],
     include_dirs=[numpy.get_include()],
 )

@@ -5,28 +5,23 @@ import time
 from openai import OpenAI, DefaultHttpxClient
 
 import GPT.tune as tune
+from utils.config import load_config, get_llm_config
 
 
 class GPTService:
     def __init__(self, args):
         logging.info('Initializing LLM Service (OpenAI-compatible)...')
 
+        cfg = load_config()
+        llm_cfg = get_llm_config(cfg, args)
+
         self.tune = tune.get_tune(args.character, getattr(args, 'model', None))
         self.counter = 0
         self.stream_sentences = getattr(args, 'stream', True) in ('true', 'True', '1', True)
 
-        # Config: support env or args; defaults to LM Studio local endpoint.
-        api_key = (getattr(args, 'APIKey', None) or
-                   os.getenv('OPENAI_API_KEY') or
-                   'lm-studio')
-
-        base_url = (os.getenv('OPENAI_BASE_URL') or
-                    getattr(args, 'base_url', None) or
-                    'http://192.168.18.3:1234/v1')
-
-        model = (getattr(args, 'model', None) or
-                 os.getenv('LLM_MODEL') or
-                 'gemma-4-e4b-abliterated')
+        api_key = llm_cfg['api_key']
+        base_url = llm_cfg['base_url']
+        model = llm_cfg['model']
 
         # Optional proxy via httpx if needed
         proxy = getattr(args, 'proxy', None) or os.getenv('HTTP_PROXY') or os.getenv('HTTPS_PROXY')

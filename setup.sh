@@ -30,10 +30,16 @@ if [ ! -d "TTS/vits" ]; then
     git submodule update --init --recursive
 fi
 
-# 4. Compile monotonic_align
+# 4. Compile monotonic_align (clean old builds first)
 echo "[4/4] Compiling monotonic_align..."
 cd TTS/vits/monotonic_align
+rm -rf build *.so monotonic_align/__init__.py >/dev/null 2>&1 || true
 python setup.py build_ext --inplace >/dev/null 2>&1
+# Ensure .so is in the correct location (same dir as __init__.py)
+if [ ! -f "core.cpython-*.so" ]; then
+    # If setuptools put it in a subfolder, move it up
+    find . -name "core.cpython-*.so" -exec mv {} ./ \; 2>/dev/null || true
+fi
 cd ../../../..
 
 echo ""

@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 set -e
 
-cd "$(dirname "$0")"
+# 取得腳本所在目錄（兼容 WSL / Linux）
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
 
 # Activate venv
-if [ ! -d ".venv/bin/activate" ]; then
+if [ ! -f ".venv/bin/activate" ]; then
     echo "Error: .venv not found. Run ./setup.sh first."
     exit 1
 fi
