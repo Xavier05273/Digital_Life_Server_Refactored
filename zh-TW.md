@@ -108,13 +108,13 @@ config.yaml
 LM Studio：
 
 ```text
-http://127.0.0.1:1234/v1
+http://192.168.x.x:1234/v1
 ```
 
 Ollama：
 
 ```text
-http://127.0.0.1:11434/v1
+http://192.168.x.x:11434/v1
 ```
 
 ---
@@ -152,7 +152,7 @@ Digital_Life_Server_Refactored/
 執行：
 
 ```bash
-cd Digital_Life_Server_Refactored
+cd ~/Digital_Life_Server_Refactored
 
 ./start.sh paimon
 ```
