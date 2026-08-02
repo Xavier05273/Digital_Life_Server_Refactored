@@ -1,3 +1,5 @@
+第一次部署? 看[中文教學](zh-TW.md)
+
 Status:
 Experimental / Personal maintained revival
 
