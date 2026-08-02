@@ -18,3 +18,7 @@ log.log
 .dockerignore
 *.tar.gz
 .DS_Store
+
+# Windows Zone.Identifier streams (NTFS alternate data streams)
+*:Zone.Identifier
+:Zone.Identifier

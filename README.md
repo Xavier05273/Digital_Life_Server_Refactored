@@ -1,21 +1,7 @@
-Status:
-Experimental / Personal maintained revival
-
-This project is under active development.
-
-
 # Digital Life Server (Refactored)
-
-Fork from https://github.com/zixiiu/Digital_Life_Server.
 
 A refactored, modernized backend for the "Digital Life" voice AI character server.  
 Designed to run with local LLMs via LM Studio (OpenAI-compatible API), and connect to the original UE client (T.exe).
-
-## Credits
-
-Based on the original Digital Life Server project by Zixiu Fu.
-
-This repository is a community-maintained revival with updated dependencies and fixes.
 
 ## Features
 
@@ -23,6 +9,7 @@ This repository is a community-maintained revival with updated dependencies and 
 - Automatic CPU/CUDA device selection for TTS
 - Clean startup scripts for Linux/WSL
 - Docker support for portable deployment
+- Configurable via `config.yaml` — no hardcoded IPs or models
 - Compatible with existing UE client (T.exe) via 127.0.0.1:38438
 
 ## Quick Start (Linux / WSL)
@@ -36,7 +23,7 @@ This repository is a community-maintained revival with updated dependencies and 
 ### First-time setup
 
 ```bash
-cd ~/Digital_Life_Server_Refactored
+cd Digital_Life_Server_Package
 chmod +x setup.sh start.sh
 ./setup.sh
 ```
@@ -46,6 +33,16 @@ This will:
 - Install all dependencies (PyTorch CPU, OpenAI SDK, ASR/TTS/Sentiment libs)
 - Initialize TTS submodule
 - Compile monotonic_align
+
+### Configure your environment
+
+Edit `config.yaml`:
+
+- Set `llm.base_url` to your LLM endpoint:
+  - For local LM Studio on the same machine: `http://127.0.0.1:1234/v1`
+  - For WSL connecting to Windows LM Studio: use your host IP (e.g., `http://192.168.x.x:1234/v1`)
+- Set `llm.model` to the model name you are using (must match what your LLM server provides)
+- Optionally set `server.host` and `server.port` if needed
 
 ### Add your models
 
@@ -60,13 +57,12 @@ Digital_Life_Server_Package/
 
 (Models are not included in this repository due to size.)
 
-### Start LM Studio(Or other local LLM provider)
+### Start LM Studio
 
 1. Open LM Studio → Local Server
 2. Click "Start server"
-3. Enable "Allow connections from local network"
-4. Open "run-lmstudio.sh"
-5. Edit "export OPENAI_BASE_URL" "YOUR_REAL_URL" on the right side
+3. Enable "Allow connections from local network" if needed
+4. Load a model (e.g., gemma-4-e4b-abliterated)
 
 ### One-click start
 
@@ -76,7 +72,7 @@ Digital_Life_Server_Package/
 ./start.sh catmaid     # Catmaid character
 ```
 
-The server listens on 0.0.0.0:38438 and waits for the UE client (T.exe) to connect.
+The server listens on the address configured in `config.yaml` (default: 0.0.0.0:38438) and waits for the UE client (T.exe) to connect.
 
 ### Connect with UE Client
 
@@ -91,7 +87,11 @@ If you have Docker installed, you can run everything in a container:
 docker compose up --build
 ```
 
-Edit docker-compose.yml to change character or LLM model.
+Edit `docker-compose.yml` to change character or LLM model.  
+For custom endpoints, override environment variables:
+
+- OPENAI_BASE_URL
+- LLM_MODEL
 
 ## Architecture
 

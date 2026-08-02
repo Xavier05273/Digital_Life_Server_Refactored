@@ -1,0 +1,34 @@
+# Digital Life Server - Configuration File
+# Edit this file to customize your setup.
+
+server:
+  # Listen address (0.0.0.0 = all interfaces)
+  host: "0.0.0.0"
+  port: 38438
+
+llm:
+  # OpenAI-compatible API endpoint (LM Studio, Ollama, etc.)
+  # For local LM Studio on the same machine: http://127.0.0.1:1234/v1
+  base_url: "http://192.168.18.3:1234/v1"
+
+  # Model name (must match what your LLM server provides)
+  model: "gemma-4-e4b-abliterated"
+
+  # API key (leave empty if using local LM Studio without auth)
+  api_key: ""
+
+characters:
+  paimon:
+    enabled: true
+    tts_model_path: "TTS/models/paimon6k_390k.pth"
+    prompt_file: "GPT/prompts/paimon4.txt"
+
+  yunfei:
+    enabled: true
+    tts_model_path: "TTS/models/yunfei6k_390k.pth"
+    prompt_file: "GPT/prompts/yunfei4.txt"
+
+  catmaid:
+    enabled: true
+    tts_model_path: "TTS/models/catmaid6k_390k.pth"
+    prompt_file: "GPT/prompts/catmaid4.txt"
