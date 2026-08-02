@@ -25,6 +25,7 @@ Designed to run with local LLMs via LM Studio (OpenAI-compatible API), and conne
 
 - Python 3.10+ (recommended 3.11)
 - Git
+- C++ compiler (build-essential python3-dev)
 - LM Studio running on the same machine with Local Server enabled
 
 ### First-time setup
@@ -86,6 +87,8 @@ Digital_Life_Server_Package/
 The server listens on the address configured in `config.yaml` (default: 0.0.0.0:38438) and waits for the UE client (T.exe) to connect.
 
 ### Connect with UE Client
+
+Download [T.exe](https://drive.google.com/drive/folders/1FWgK3M2Mh2gyF9gVj6v2vmvTcCn27UM9?usp=sharing)
 
 - Configure T.exe to connect to: 127.0.0.1:38438
 - Or use the container/host IP + 38438 if running via Docker
