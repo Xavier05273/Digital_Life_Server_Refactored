@@ -171,7 +171,7 @@ Server is listening on ('0.0.0.0', 38438)
 
 下載：
 
-**T.exe**
+**[T.exe](https://drive.google.com/drive/folders/1FWgK3M2Mh2gyF9gVj6v2vmvTcCn27UM9?usp=sharing)**
 
 啟動後設定：
 
