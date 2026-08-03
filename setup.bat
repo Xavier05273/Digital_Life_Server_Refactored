@@ -3,7 +3,7 @@ setlocal enabledelayedexpansion
 
 cd /d "%~dp0"
 set "ROOT=%CD%"
-set "PYTHON=!ROOT!.venv\Scripts\python.exe"
+set "PYTHON=!ROOT!\.venv\Scripts\python.exe"
 
 echo ==========================================
 echo   Digital Life Server - First Time Setup
