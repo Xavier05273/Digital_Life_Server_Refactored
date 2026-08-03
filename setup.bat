@@ -14,7 +14,7 @@ set "PYTORCH_CHOICE="
 set /p "PYTORCH_CHOICE=Install PyTorch version? [cpu/cuda] (default: cpu): "
 if "!PYTORCH_CHOICE!"=="" set "PYTORCH_CHOICE=cpu"
 
-if /i not "!PYTORCH_CHOIVE!"=="cpu" if /i not "!PYTORCH_CHOICE!"=="cuda" (
+if /i not "!PYTORCH_CHOICE!"=="cpu" if /i not "!PYTORCH_CHOICE!"=="cuda" (
     echo Invalid choice. Please enter 'cpu' or 'cuda'.
     goto ask_pytorch
 )
@@ -32,16 +32,34 @@ if not exist ".venv\Scripts\activate.bat" (
 
 call .venv\Scripts\activate.bat
 
-REM 3. Install PyTorch + requirements
+REM 3. Install PyTorch + requirements (with retry and longer timeout)
 echo [2/4] Installing Python packages (this may take a while)...
 
-if /i "!PYTORCH_CHOICE!"=="cpu" (
-    pip install --quiet torch torchaudio --index-url https://download.pytorch.org/whl/cpu
-) else if /i "!PYTORCH_CHOICE!"=="cuda" (
-    pip install --quiet torch torchaudio --index-url https://download.pytorch.org/whl/cu124
+set "PYTORCH_OK=0"
+for %%i in (1 2) do (
+    if "!PYTORCH_OK!"=="1" goto pytorch_done
+
+    echo Attempt %%i of 2: installing PyTorch...
+
+    if /i "!PYTORCH_CHOICE!"=="cpu" (
+        pip install --timeout 180 --quiet torch torchaudio --index-url https://download.pytorch.org/whl/cpu && set "PYTORCH_OK=1"
+    ) else if /i "!PYTORCH_CHOICE!"=="cuda" (
+        pip install --timeout 180 --quiet torch torchaudio --index-url https://download.pytorch.org/whl/cu124 && set "PYTORCH_OK=1"
+    )
+
+    if "!PYTORCH_OK!"=="0" (
+        echo PyTorch installation failed or timed out. Retrying once...
+    )
 )
 
-pip install --quiet -r requirements.txt
+:pytorch_done
+if "!PYTORCH_OK!"=="0" (
+    echo Error: Failed to install PyTorch after 2 attempts. Please check your internet connection and try again.
+    pause
+    exit /b 1
+)
+
+pip install --timeout 180 --quiet -r requirements.txt
 
 REM 4. Init git submodule (vits TTS)
 echo [3/4] Initializing TTS submodule...
