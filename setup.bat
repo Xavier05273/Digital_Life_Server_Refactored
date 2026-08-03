@@ -2,6 +2,8 @@
 setlocal enabledelayedexpansion
 
 cd /d "%~dp0"
+set "ROOT=%CD%"
+set "PYTHON=!ROOT!.venv\Scripts\python.exe"
 
 echo ==========================================
 echo   Digital Life Server - First Time Setup
@@ -30,8 +32,6 @@ if not exist ".venv\Scripts\activate.bat" (
     echo [1/4] Virtual environment already exists.
 )
 
-call .venv\Scripts\activate.bat
-
 REM 3. Install PyTorch + requirements (with retry and longer timeout)
 echo [2/4] Installing Python packages (this may take a while)...
 
@@ -42,9 +42,9 @@ for %%i in (1 2) do (
     echo Attempt %%i of 2: installing PyTorch...
 
     if /i "!PYTORCH_CHOICE!"=="cpu" (
-        pip install --timeout 180 --quiet torch torchaudio --index-url https://download.pytorch.org/whl/cpu && set "PYTORCH_OK=1"
+        !PYTHON! -m pip install --timeout 180 --quiet torch torchaudio --index-url https://download.pytorch.org/whl/cpu && set "PYTORCH_OK=1"
     ) else if /i "!PYTORCH_CHOICE!"=="cuda" (
-        pip install --timeout 180 --quiet torch torchaudio --index-url https://download.pytorch.org/whl/cu124 && set "PYTORCH_OK=1"
+        !PYTHON! -m pip install --timeout 180 --quiet torch torchaudio --index-url https://download.pytorch.org/whl/cu124 && set "PYTORCH_OK=1"
     )
 
     if "!PYTORCH_OK!"=="0" (
@@ -59,7 +59,7 @@ if "!PYTORCH_OK!"=="0" (
     exit /b 1
 )
 
-pip install --timeout 180 --quiet -r requirements.txt
+!PYTHON! -m pip install --timeout 180 --quiet -r requirements.txt
 
 REM 4. Init git submodule (vits TTS)
 echo [3/4] Initializing TTS submodule...
@@ -80,15 +80,15 @@ if not exist "TTS\vits" (
     echo TTS/vits already exists.
 )
 
-REM 5. Compile monotonic_align
+REM 5. Compile monotonic_align (use venv python directly to avoid PATH issues)
 echo [4/4] Compiling monotonic_align...
 
-cd TTS\vits\monotonic_align
+cd /d "!ROOT!\TTS\vits\monotonic_align"
 
 if exist "build" rmdir /s /q build >nul 2>&1 || true
 for %%f in (*.so *.pyd) do if exist "%%f" del "%%f" >nul 2>&1 || true
 
-python setup.py build_ext --inplace >nul 2>&1
+!PYTHON! setup.py build_ext --inplace
 
 REM Ensure .so/.pyd is in the correct location (same dir as __init__.py)
 set "FOUND=0"
@@ -100,7 +100,7 @@ if "!FOUND!"=="0" (
     )
 )
 
-cd ..\..\..
+cd /d "!ROOT!"
 
 echo.
 echo ==========================================
