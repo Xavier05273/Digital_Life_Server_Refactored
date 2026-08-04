@@ -184,7 +184,9 @@ Digital_Life_Server_Refactored/
 * Port：`38438`
 
 若使用 Docker 或遠端部署，請改成對應 IP。
+
 若使用 Android 版本連線，需要允許 Windows 防火牆接收 TCP 38438 連線。
+
 ---
 
 # Docker（實驗性）
