@@ -19,16 +19,35 @@ from TTS import TTService
 from SentimentEngine import SentimentEngine
 
 
+import sys
+
+# Force UTF-8 for stdout/stderr on Windows to avoid UnicodeEncodeError with Chinese text
+if sys.platform == 'win32':
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8')
+    if hasattr(sys.stderr, 'reconfigure'):
+        sys.stderr.reconfigure(encoding='utf-8')
+
 console_logger = logging.getLogger()
 console_logger.setLevel(logging.INFO)
 FORMAT = '%(asctime)s %(levelname)s %(message)s'
-console_handler = console_logger.handlers[0]
-console_handler.setFormatter(logging.Formatter(FORMAT))
-console_logger.setLevel(logging.INFO)
+
+# Remove default handler and create new ones with UTF-8 support
+for h in console_logger.handlers[:]:
+    console_logger.removeHandler(h)
+
 file_handler = FlushingFileHandler("log.log", formatter=logging.Formatter(FORMAT))
 file_handler.setFormatter(logging.Formatter(FORMAT))
 file_handler.setLevel(logging.INFO)
 console_logger.addHandler(file_handler)
+
+# Console handler with UTF-8 encoding (critical for Windows)
+try:
+    console_handler = logging.StreamHandler(sys.stdout)
+except Exception:
+    console_handler = logging.StreamHandler()
+console_handler.setFormatter(logging.Formatter(FORMAT))
+console_handler.setLevel(logging.INFO)
 console_logger.addHandler(console_handler)
 
 
