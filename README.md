@@ -1,124 +1,233 @@
-小白來的? 這裡有詳細的[中文教學](zh-TW.md)
+# Digital Life Server Refactored
 
-Status:
-Experimental / Personal maintained revival
+> ⚠️ **專案狀態：持續維護中（Active Development）**
+> 本專案為原始 **Digital Life Server** 的社群維護版本，目標是修復過時 API、更新相依套件，並讓專案能夠在現代環境重新運作。
 
-This project is under active development.
+**原始專案：** https://github.com/zixiiu/Digital_Life_Server
 
-# Digital Life Server (Refactored)
+---
 
-Fork from https://github.com/zixiiu/Digital_Life_Server
+## 專案介紹
 
-A refactored, modernized backend for the "Digital Life" voice AI character server.  
-Designed to run with local LLMs via LM Studio (OpenAI-compatible API), and connect to the original UE client (T.exe).
+Digital Life Server Refactored 是一個重新整理與維護的後端伺服器，用於驅動 **Digital Life** 語音 AI 角色。
 
-## Features
+目前支援透過 **LM Studio**（或其他 OpenAI Compatible API）連接本地大型語言模型，並可直接與原版 UE 用戶端 **T.exe** 相容。
 
-- OpenAI-compatible LLM integration (LM Studio / any compatible endpoint)
-- Automatic CPU/CUDA device selection for TTS
-- Clean startup scripts for Linux/WSL
-- Docker support for portable deployment
-- Configurable via `config.yaml` — no hardcoded IPs or models
-- Compatible with existing UE client (T.exe) via 127.0.0.1:38438
+---
 
-## Quick Start (Linux / WSL)
+# 功能特色
 
-### Prerequisites
+* ✅ 支援 OpenAI Compatible API（LM Studio、Ollama、vLLM...）
+* ✅ 提供 Linux / WSL / Windows 一鍵啟動腳本
+* ✅ 相容原版 UE Client（T.exe）
 
-- Python 3.10+ (recommended 3.11)
-- Git
-- C++ compiler (build-essential python3-dev)
-- LM Studio running on the same machine with Local Server enabled
+---
 
-### First-time setup
+# 快速開始
+
+## Linux / WSL
+
+### 需求
+
+* Python 3.10 以上（建議 3.11）
+* Git
+* C/C++ 編譯器（build-essential、python3-dev）
+* LM Studio（或其他 OpenAI Compatible API）
+
+### 安裝
 
 ```bash
 cd ~
+
 git clone https://github.com/Xavier05273/Digital_Life_Server_Refactored.git
-cd ./Digital_Life_Server_Refactored
+
+cd Digital_Life_Server_Refactored
+
 chmod +x setup.sh start.sh
+
 ./setup.sh
 ```
 
-This will:
-- Create a Python virtual environment (.venv)
-- Install all dependencies (PyTorch CPU, OpenAI SDK, ASR/TTS/Sentiment libs)
-- Initialize TTS submodule
-- Compile monotonic_align
+首次安裝將會：
 
-### Configure your environment
+* 建立 Python 虛擬環境（`.venv`）
+* 安裝所有 Python 相依套件
+* 初始化 TTS Submodule
+* 編譯 `monotonic_align`
 
-Edit `config.yaml`:
+---
 
-- Set `llm.base_url` to your LLM endpoint:
-  - For local LM Studio on the same machine: `http://127.0.0.1:1234/v1`
-  - For WSL connecting to Windows LM Studio: use your host IP (e.g., `http://192.168.x.x:1234/v1`)
-- Set `llm.model` to the model name you are using (must match what your LLM server provides)
-- Optionally set `server.host` and `server.port` if needed
+## Windows
 
-### Add your models
+### 需求
 
-You can download models from [Google Drive](https://drive.google.com/file/d/1_jp826uLmK8qT6BCJ_iyaU6WB9RSljv0/view?usp=sharing) or [百度网盘](https://pan.baidu.com/s/1EnHDPADNdhDl71x_DHeElg?pwd=75gr)
+* Python 3.10 以上（建議 3.11）
+* Git
+* Visual Studio（Desktop development with C++）
+* LM Studio（或其他 OpenAI Compatible API）
 
-Place model files in the corresponding directories:
-
-```
-Digital_Life_Server_Package/
-├── ASR/resources/models/          # ASR model files
-├── SentimentEngine/models/        # Sentiment analysis model
-└── TTS/models/                    # TTS character models (paimon/yunfei/catmaid)
-```
-
-(Models are not included in this repository due to size.)
-
-### Start LM Studio(Or other LLM provider)
-
-1. Open LM Studio → Local Server
-2. Click "Start server"
-3. Enable "Allow connections from local network" if needed
-4. Load a model (e.g., gemma-4-e4b-abliterated)
-
-### One-click start
+### 安裝
 
 ```bash
-./start.sh paimon      # Paimon character
-./start.sh yunfei      # Yunfei character (Untested)
-./start.sh catmaid     # Catmaid character (Untested)
+git clone https://github.com/Xavier05273/Digital_Life_Server_Refactored.git
+
+cd Digital_Life_Server_Refactored
+
+.\setup.bat
 ```
 
-The server listens on the address configured in `config.yaml` (default: 0.0.0.0:38438) and waits for the UE client (T.exe) to connect.
+首次安裝將會：
 
-### Connect with UE Client
+* 建立 Python 虛擬環境（`.venv`）
+* 安裝所有 Python 相依套件
+* 初始化 TTS Submodule
+* 編譯 `monotonic_align`
 
-Download [T.exe](https://drive.google.com/drive/folders/1FWgK3M2Mh2gyF9gVj6v2vmvTcCn27UM9?usp=sharing)
+---
 
-- Configure T.exe to connect to: 127.0.0.1:38438
-- Or use the container/host IP + 38438 if running via Docker
+# 設定
 
-## Docker Mode (Optional) (Untested)
+請編輯：
 
-If you have Docker installed, you can run everything in a container:
+```text
+config.yaml
+```
+
+## LLM
+
+設定你的 LLM API：
+
+### LM Studio（本機）
+
+```text
+http://127.0.0.1:1234/v1
+```
+或是其他模型提供商
+
+另外請修改：
+
+* `llm.model`
+* 如需要，可填寫API
+
+依照自己的環境調整。
+
+---
+
+# 模型下載
+
+模型請自行下載（Repository 不包含模型檔）。
+
+可從以下來源取得：
+
+* [Google Drive](https://drive.google.com/file/d/1_jp826uLmK8qT6BCJ_iyaU6WB9RSljv0/view?usp=sharing)（建議）
+* [百度網盤](https://pan.baidu.com/s/1EnHDPADNdhDl71x_DHeElg?pwd=75gr)
+
+下載完成後請放置於：
+
+```text
+Digital_Life_Server_Refactored/
+
+├── ASR/resources/models/
+├── SentimentEngine/models/
+└── TTS/models/
+```
+
+---
+
+# 啟動 LLM
+
+以 LM Studio 為例：
+
+1. 開啟 LM Studio
+2. 進入 **Local Server**
+3. 點擊 **Start Server**
+4. 如有需要，開啟 **Allow connections from local network**
+5. 載入模型（例如 `gemma-4-e4b-abliterated`）
+
+---
+
+# 啟動伺服器
+
+## Linux / WSL
+
+```bash
+./start.sh
+```
+
+## Windows
+
+```bat
+.\start.bat
+```
+
+伺服器會依照 `config.yaml` 中的設定啟動。
+
+預設：
+
+```text
+0.0.0.0:38438
+```
+
+等待 UE Client 連線。
+
+---
+
+# 連接 UE Client
+
+下載：
+
+**[T.exe](https://drive.google.com/drive/folders/1FWgK3M2Mh2gyF9gVj6v2vmvTcCn27UM9?usp=sharing)**
+
+設定：
+
+* Host：`127.0.0.1`
+* Port：`38438`
+
+若使用 Docker 或遠端部署，請改成對應 IP。
+若使用 Android 版本連線，需要允許 Windows 防火牆接收 TCP 38438 連線。
+---
+
+# Docker（實驗性）
+
+> ⚠️ 目前尚未完整測試。
+
+若已安裝 Docker：
 
 ```bash
 docker compose up --build
 ```
 
-Edit `docker-compose.yml` to change character or LLM model.  
-For custom endpoints, override environment variables:
+可透過修改：
 
-- OPENAI_BASE_URL
-- LLM_MODEL
+* `docker-compose.yml`
+* `OPENAI_BASE_URL`
+* `LLM_MODEL`
 
-## Architecture
+切換模型或 API。
 
-- ASR: Speech-to-text using Paraformer-based pipeline
-- GPT/LLM: OpenAI-compatible API client (for LM Studio or similar)
-- TTS: VITS-based voice synthesis with per-character models
-- SentimentEngine: ONNX-based sentiment inference for expressive responses
-- SocketServer.py: Core server handling UE client communication
+---
 
-## Notes
+# 專案架構
 
-- This is a refactored version of the original Digital_Life_Server.
-- Legacy ChatGPT/revChatGPT dependencies have been removed.
-- Designed to be portable and easy to deploy on any machine with Docker or Python 3.10+.
+* **ASR**：語音辨識（Paraformer）
+* **LLM**：OpenAI Compatible API（LM Studio、Ollama、vLLM）
+* **TTS**：VITS 語音合成
+* **SentimentEngine**：ONNX 情緒分析
+* **SocketServer.py**：負責與 UE Client 通訊
+
+---
+
+# 注意事項
+
+* 本專案為 **Digital Life Server** 的重新維護版本。
+* 已移除舊版 ChatGPT / revChatGPT 相依套件。
+* 以 Python 3.10+ 為主要開發與測試環境。
+* 歡迎提交 Issue、Pull Request 或提供改進建議。
+
+---
+
+# 致謝
+
+本專案基於原作者 **Hupa** 及其團隊發布的 **Digital Life Server**（MIT License）進行維護與更新。
+
+感謝原作者提供開源專案，讓社群得以在此基礎上持續改進與發展。
