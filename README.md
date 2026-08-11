@@ -18,7 +18,7 @@ Digital Life Server Refactored 是一個重新整理與維護的後端伺服器�
 # 功能特色
 
 * ✅ 支援 OpenAI Compatible API（LM Studio、Ollama、vLLM...）
-* ✅ 提供 Linux / WSL / Windows 一鍵啟動腳本
+* ✅ 提供現代化 UI
 * ✅ 相容原版 UE Client（T.exe）
 
 ---
@@ -63,7 +63,7 @@ chmod +x setup.sh start.sh
 
 * Python 3.10 以上（建議 3.11）
 * Git
-* Visual Studio（Desktop development with C++）
+* Visual Studio（Desktop development with C++, .NET桌面開發）
 * LM Studio（或其他 OpenAI Compatible API）
 
 ### 安裝
@@ -84,8 +84,14 @@ cd Digital_Life_Server_Refactored
 * 編譯 `monotonic_align`
 
 ---
+# 編譯 UI (限 Windows)
 
-# 設定
+進入 DL_Launcher-master, 打開 Launcher.sln
+接著按啟動，等待編譯完成即可
+
+---
+
+# 設定 (Linux) (Windows 可選)
 
 請編輯：
 
@@ -93,19 +99,9 @@ cd Digital_Life_Server_Refactored
 config.yaml
 ```
 
-## LLM
-
 設定你的 LLM API：
 
-### LM Studio（本機）
-
-```text
-http://127.0.0.1:1234/v1
-```
-或是其他模型提供商
-
-另外請修改：
-
+* `Base URL`
 * `llm.model`
 * 如需要，可填寫API
 
@@ -134,18 +130,6 @@ Digital_Life_Server_Refactored/
 
 ---
 
-# 啟動 LLM
-
-以 LM Studio 為例：
-
-1. 開啟 LM Studio
-2. 進入 **Local Server**
-3. 點擊 **Start Server**
-4. 如有需要，開啟 **Allow connections from local network**
-5. 載入模型（例如 `gemma-4-e4b-abliterated`）
-
----
-
 # 啟動伺服器
 
 ## Linux / WSL
@@ -156,23 +140,14 @@ Digital_Life_Server_Refactored/
 
 ## Windows
 
-```bat
-.\start.bat
-```
+執行 DL_Launcher-master -> Launcher -> bin -> Debug -> Launcher.exe
 
-伺服器會依照 `config.yaml` 中的設定啟動。
-
-預設：
-
-```text
-0.0.0.0:38438
-```
-
-等待 UE Client 連線。
+填入 Base URL 以及 模型名稱
+保存配置後按啟動伺服器即可
 
 ---
 
-# 連接 UE Client
+# 連接 UE Client (Linux)
 
 下載：
 

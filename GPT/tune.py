@@ -3,16 +3,8 @@ import os
 
 
 def get_tune(character, model=None):
-    # 決定使用哪一版 prompt：3.5 / 4 / default
-    m = (model or "").lower()
-
-    if "3.5" in m:
-        ver = "35"
-    elif "4" in m:
-        ver = "4"
-    else:
-        # 預設使用 4 版 prompt（或你自訂）
-        ver = "4"
+    # 固定使用 4 版 prompt，不依模型名稱切換
+    ver = "4"
 
     filename = f"{character}{ver}.txt"
 

@@ -22,5 +22,6 @@ class FlushingFileHandler(logging.FileHandler):
             self.nice_try(record)
 
     def nice_try(self, record):
-        with open('log_async.log', 'a', encoding='utf-8') as f:
+        # Use the handler's own file (e.g. log.log), not a hardcoded path
+        with open(self.baseFilename, 'a', encoding='utf-8') as f:
             f.write(self.formatter.format(record) + '\n')
