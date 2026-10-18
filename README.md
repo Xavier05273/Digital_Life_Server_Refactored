@@ -194,15 +194,6 @@ docker compose up --build
 
 ---
 
-# 注意事項
-
-* 本專案為 **Digital Life Server** 的重新維護版本。
-* 已移除舊版 ChatGPT / revChatGPT 相依套件。
-* 以 Python 3.10+ 為主要開發與測試環境。
-* 歡迎提交 Issue、Pull Request 或提供改進建議。
-
----
-
 # 致謝
 
 本專案基於原作者 **Hupa** 及其團隊發布的 **Digital Life Server**（MIT License）進行維護與更新。
