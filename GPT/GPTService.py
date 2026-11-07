@@ -25,11 +25,15 @@ class GPTService:
 
         # Optional proxy via httpx if needed
         proxy = getattr(args, 'proxy', None) or os.getenv('HTTP_PROXY') or os.getenv('HTTPS_PROXY')
-        if proxy:
+        if proxy and isinstance(proxy, str):
+            try:
+                http_client = DefaultHttpxClient(proxy=proxy)
+            except TypeError:
+                http_client = DefaultHttpxClient(proxies=proxy)
             client_kwargs = {
                 "api_key": api_key,
                 "base_url": base_url,
-                "http_client": DefaultHttpxClient(proxies=proxy),
+                "http_client": http_client,
             }
         else:
             client_kwargs = {
@@ -97,8 +101,9 @@ class GPTService:
                     continue
                 complete_text += delta
 
+                delimiters = ["。", "！", "？", ".", "!", "?", "\n", "；", ";"]
                 # Flush as a TTS chunk on sentence boundaries.
-                if any(p in delta for p in ["。", "！", "？", "\n"]) and len(complete_text) > 3:
+                if any(p in delta for p in delimiters) and len(complete_text.strip()) > 1:
                     logging.info(
                         f'LLM Stream Response: {complete_text.strip()}, @Time {time.time() - stime:.2f}'
                     )
