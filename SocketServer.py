@@ -102,6 +102,8 @@ def parse_args():
 
 class Server():
     def __init__(self, args):
+        self.args = args
+
         # Load configuration from file
         cfg = load_config(args.config)
 
@@ -135,9 +137,10 @@ class Server():
         }
 
         # Override with config.yaml character settings if present
-        char_cfg = get_character_config(cfg, char_name_input)
-        if char_cfg.get("tts_model_path"):
-            self.char_name[char_name_input][1] = char_cfg["tts_model_path"]
+        for key in list(self.char_name.keys()):
+            char_cfg = get_character_config(cfg, key)
+            if char_cfg.get("tts_model_path"):
+                self.char_name[key][1] = char_cfg["tts_model_path"]
 
         if char_name_input not in self.char_name:
             raise ValueError(f"Unknown character: {char_name_input}. Choose from {list(self.char_name.keys())}")
@@ -178,8 +181,8 @@ class Server():
 
                     ask_text = self.process_voice()
 
-                    if args.stream is not None:
-                        use_stream = args.stream
+                    if self.args.stream is not None:
+                        use_stream = self.args.stream
                     else:
                         # Default to True unless explicitly disabled via env/config later.
                         use_stream = True
@@ -239,10 +242,18 @@ class Server():
     def __receive_file(self):
         file_data = b''
         while True:
-            data = self.conn.recv(1024)
-            self.conn.send(b'sb')
+            try:
+                data = self.conn.recv(1024)
+            except Exception as e:
+                logging.error(f"Error receiving socket data: {e}")
+                return b''
             if not data:
-                continue
+                return file_data
+            try:
+                self.conn.send(b'sb')
+            except Exception as e:
+                logging.error(f"Error sending acknowledgement: {e}")
+                return b''
             if data[-2:] == b'?!':
                 file_data += data[0:-2]
                 break
